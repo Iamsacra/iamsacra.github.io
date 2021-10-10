@@ -1,0 +1,198 @@
+* {
+    padding: 0;
+    margin:0px;
+    box-sizing: border-box;
+
+    text-align: left;
+}
+
+html {
+    font-size: 25px;
+    font-family: 'Source Code Pro', monospace;  
+    max-width: 650px;
+    margin: auto;
+}
+
+body {
+		background-color: #262626;
+    padding-top: 80px;
+}
+
+a {
+	text-decoration: none;
+	outline: none;
+}
+
+.user1 {
+    display: inline-block; 
+    overflow: hidden;
+    position: relative;
+    color: #60b48a; 
+}
+
+.user2 {
+    display: inline-block; 
+    overflow: hidden;
+    position: relative;
+    color: #60b48a;
+    animation: cssAnimation 0s 3s forwards;
+    visibility: hidden;
+}
+
+@keyframes cssAnimation {
+    to {visibility: visible; }
+}
+
+.user3 {
+    display: inline-block; 
+    overflow: hidden;
+    position: relative;
+    color: #60b48a;
+    animation: cssAnimation2 0s 6.5s forwards;
+    visibility: hidden;
+}
+
+@keyframes cssAnimation2 {
+    to {visibility: visible; }
+}
+
+.dir1 {
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    color: #dfaf8f;
+}
+
+.dir2 {
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    color: #dfaf8f;
+    animation: cssAnimation 0s 3s forwards;
+    visibility: hidden;
+}
+
+.dir3 {
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    color: #dfaf8f;
+    animation: cssAnimation 0s 6.5s forwards;
+    visibility: hidden;
+}
+
+@keyframes cssAnimation {
+    to {visibility: visible; }
+}
+
+h1{
+    font-weight: normal;
+    font-size: 25px;
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+    color: white;
+}
+h1 {
+  animation: animated-text 2s steps(17,end) 1s 1 normal both;
+}
+
+@keyframes animated-text{
+  from{width: 0;}
+  to{width: 256px;}
+}
+
+
+h2 {
+     font-weight: normal;
+     font-size: 25px;
+     display: inline-block;
+     overflow: hidden;
+     position: relative;
+     white-space: nowrap;
+     color: white;
+}
+
+h2 {
+  animation: animated-text2 2s steps(20,end) 4s 1 normal both;
+}
+
+@keyframes animated-text2{
+  from{width: 0;}
+  to{width: 300px;}
+}
+
+.terminal_output {
+    position: relative;
+    color: #fff;
+    animation: cssAnimation1 0s 6.5s forwards;
+    visibility: hidden;
+    font-size: 20px;
+ }
+
+.terminal_output_links {
+    position: relative;
+    color: #fff;
+    animation: cssAnimation1 0s 6.5s forwards;
+    visibility: hidden;
+    font-size: 20px;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+}
+
+ @keyframes cssAnimation1 {
+     to {visibility: visible; }
+ }
+
+.Title{
+    position: relative;
+    font-weight: bold;
+    font-size: 25px;
+    color: #dfaf8f;
+    text-align:left;
+}
+
+.text_body{
+    font-weight: normal;
+    font-size: 16px;
+    position: relative;
+    color: white;
+    max-width;650px;
+    padding-bottom: 15px;
+}
+
+.links {
+    color: #d3d3d3;
+    font-size: 14px;
+    font-style: italic;
+    text-decoration: none;   
+    outline: none;
+}
+
+.links_group {
+    text-align: right;
+    top: -32px;
+    position: relative;
+}
+
+
+.separator {
+    visibility:hidden;
+}
+
+.post_titles {
+    position: relative;
+    color: #fff;
+    font-size: 20px;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    padding-bottom: 15px;
+}
+
+.date {
+    color: #e9e9e9;
+    font-size: 14px;
+    font-style: italic;
+    padding-bottom: 15px;
+}
