@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Página Principal</title>
+	<link rel="stylesheet" href="/css_js/style.css"
+</head>
+<body>
+<header class="header">
+    <nav class="navbar">
+        <a class=Title>NAT</a>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="https://github.com/Iamsacra" class="nav-link">Github</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://www.linkedin.com/in/saulbraga/" class="nav-link">Linkedin</a>
+            </li>
+            <li class="nav-item">
+                <a href="/main/pagina_principal.html" class="nav-link">Main</a>
+            </li>
+            <li class="nav-item">
+                <a href="/topics/linux/linux.html">
+					<img alt="Inglês" src="/imgs/1920px-Flag_of_the_United_Kingdom.svg.png"
+					width="23" height="12">
+				 </a>
+            </li>
+        </ul>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+</header>
+<script src="/css_js/navbar.js"></script>
+<p class=separator>.</p>
+
+    <div class=linksTopics_group>
+        <a class=linksTopics href="/topics/linux/linuxpt.html">..Voltar\ a\ Linux</a>
+        <p class=separator>.</p>
+    </div>
+ 	<p class=text_body_content>
+        <strong>NAT</strong>
+
+        Precisamos de uma placa configurada para distribuir o NAT, e outra com acesso a internet, um servidor e Linux - DHCP configurado. Temos que transformar o linux num rooter e transferir o trafego da placa interna para a com acesso a internet.
+
+temos que descometar a seguinte linha no ficheiro /etc/sysctl.conf (linha 28)
+net.ipv4.ip_forward=1
+
+Depois disso temos que reinciar o servidor para assumir as alterações
+
+De seguida instalamos o iptables com o seguinte comando:
+apt install iptables
+
+Depois disso devemos de usar o seguinte comando:
+iptables --table nat --append POSTROUTING --out-interface enp0s3 -j MASQUERADE
+
+Porem sempre que reiniciarmos o servidor tinhamos que refazer este comando, mas podemos fazer um script que corre sempre que iniciamos o servidor.
+
+    </p>
+</body>
+</html>

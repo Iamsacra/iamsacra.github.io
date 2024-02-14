@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Página Principal</title>
+	<link rel="stylesheet" href="/css_js/style.css"
+</head>
+<body>
+<header class="header">
+    <nav class="navbar">
+        <a class=Title>DHCP</a>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="https://github.com/Iamsacra" class="nav-link">Github</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://www.linkedin.com/in/saulbraga/" class="nav-link">Linkedin</a>
+            </li>
+            <li class="nav-item">
+                <a href="/main/pagina_principal.html" class="nav-link">Main</a>
+            </li>
+            <li class="nav-item">
+                <a href="/topics/linux/linux.html">
+					<img alt="Inglês" src="/imgs/1920px-Flag_of_the_United_Kingdom.svg.png"
+					width="23" height="12">
+				 </a>
+            </li>
+        </ul>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+</header>
+<script src="/css_js/navbar.js"></script>
+<p class=separator>.</p>
+
+    <div class=linksTopics_group>
+        <a class=linksTopics href="/topics/linux/linuxpt.html">..Voltar\ a\ Linux</a>
+        <p class=separator>.</p>
+    </div>
+ 	<p class=text_body_content>
+        <strong>DHCP</strong>
+        
+        Para configurar o servidor de dhcp no linux temos que fazer primeiro o seguinte:
+        apt install isc-dhcp-server
+        
+        Para configurar o dhcp no linux e atribuir os ip's atraves do server temos que editar o ficheiro:
+        vim /etc/default/isc-dhcp-server
+        
+        tiramos o comentário da quarta linha que diz:
+        Isto é onde vamos configurar o ip, mascara, gateway e dns que vamos enviar para os clientes.
+        DHCPv4_CONF=/etc/dhcp/dhcpd.conf
+        
+        e comentamos onde diz
+        INTERFACESv6=""
+        
+        E dentro de INTERFACESv4 adicionamos a placa que queremos:
+        INTERFACESv4 ="enp0s3"
+        
+        Agora vamos editar o ficheiro /etc/dhcp/dhcpd.conf.
+        Dentro do ficheiro eliminamos tudo e vamos criar as configurações do 0.
+        
+        Para o ip e mascara usamos:
+        subnet 192.168.0.0 netmask 255.255.0.0
+        
+        Para o default-gateway:
+        option routers 192.168.107.251;
+        
+        Para os dns, tem uma virgula a separar os dns:
+        option domain-name-servers 8.8.8.8,1.1.1.1;
+        
+        A opção a seguir é opcional, mas é o nome da rede:
+        option domain-name "saul.linux";
+        
+        ficando assim:
+        
+        subnet 192.168.0.0 netmask 255.255.0.0
+        { 
+          range dynamic-bootp 192.168.100.0 192.168.100.250;
+          option routers 192.168.107.251;
+          option domain-name-servers 8.8.8.8,1.1.1.1;
+          option domain-name "saul.linux";
+        }
+        Depois disso reiniciamos o serviço
+        systemctl restart isc-dhcp-server
+        
+        IP fixo no servidor DHCP
+        subnet 192.168.0.0 netmask 255.255.0.0
+        { 
+          range dynamic-bootp 192.168.100.0 192.168.100.250;
+          option routers 192.168.107.251;
+          option domain-name-servers 8.8.8.8,1.1.1.1;
+          option domain-name "saul.linux";
+        }
+        
+        # Nome que quisermos
+        host Printer
+        {
+            # Mac address da máquina ou impressora
+            hardware ethernet 08:00:27:89:A2:D8;
+        
+            # Ip fixo Pode estar dentro do range ou não, mas tem que 
+            # estar na mesma subnet
+            fixed-address 192.168.0.79;
+        }
+        
+        # Se quisermos adicionar outra máquina basta fazer o mesmo.
+        
+        Host printer2
+        {
+            hardware ethernet 08:00:27:89:A2:D9;
+            fixed-address 192.168.0.80;
+        }
+        Mas, o DHCP só atribui ips as máquinas, se quisermos que essas máquinas também tenham internet, e que o tráfico passe pelo nosso servidor, NAT.
+
+    </p>
+</body>
+</html>

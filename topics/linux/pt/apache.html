@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Página Principal</title>
+	<link rel="stylesheet" href="/css_js/style.css"
+</head>
+<body>
+<header class="header">
+    <nav class="navbar">
+        <a class=Title>Apache2</a>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="https://github.com/Iamsacra" class="nav-link">Github</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://www.linkedin.com/in/saulbraga/" class="nav-link">Linkedin</a>
+            </li>
+            <li class="nav-item">
+                <a href="/main/pagina_principal.html" class="nav-link">Main</a>
+            </li>
+            <li class="nav-item">
+				<a href="/topics/linux/linux.html">
+					<img alt="Inglês" src="/imgs/1920px-Flag_of_the_United_Kingdom.svg.png"
+					width="23" height="12">
+				 </a>
+            </li>
+        </ul>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+</header>
+<script src="/css_js/navbar.js"></script>
+<p class=separator>.</p>
+
+    <div class=linksTopics_group>
+        <a class=linksTopics href="/topics/linux/linuxpt.html">..Voltar\ a\ Linux</a>
+        <p class=separator>.</p>
+    </div>
+ 	<p class=text_body_content>
+        <strong>Apache2</strong>
+
+        Servidor web, deu renome ao Linux uma vez que grande parte da web usa este serviço para alojar o servidor.
+        Para instalar o apache2 temos que usar o APT:
+        apt install apache2
+
+        Mal tenhamos o apache instalado se escrevemos no nosso browser o ip da nossa máquina, ou de loopback (127.0.0.1) aparece por defeito o do apache2.
+        Isto significa que o nosso servidor está a funcionar.
+
+
+        Por defeito o apache só lé os ficheiros que estão em /var/www/html.
+        dentro desta página está o nosso ficheiro index.html, que é a pagina que nos aparece quando vemos no browser.
+        Editando este ficheiro, altera a pagina em sí.
+
+        Para fazer refresh a página e a cache do server usamos ctrl + F5.
+
+        Agora vamos criar um ficheiro html, por exemplo linux.html e colocamos o que quisermos lá dentro.
+        Agora para conseguir abrir este ficheiro, temos que colocar o IP e o nome do ficheiro, assim:
+        192.168.107.106/linux.html
+
+        Se quisermos subdividir mais, podemos criar pastas e dentro dessas pastas mais ficheiros html, por exemplo:
+        mkdir redes
+        touch index.html
+        touch gestredes.html
+
+        Depois disso, para aceder ao html fazemos:
+        192.168.107.106/redes/index.html
+
+        ou apenas:
+        192.168.107.106/redes/
+
+        Para o gestredes:
+        192.168.107.106/redes/gestredes.html
+
+        caso não exista um index na pasta, vai mostrar um index de todas as pastas e ficheiros no nosso site.
+
+        Porem, normalmente quando estamos a trabalhar num website, não fazemos diretamente no servidor, por isso, fazemos as alterações que queremos e depois enviamos através do serviço FTP para o nosso servidor em questão, usando por exemplo o vsftpd (ver nota).
+        Quando fazemos isto, temos que ter em atenção em alterar o dono do ficheiro para root, não é necessário, mas temos que colocar o ficheiro com permissões de leitura, pelo menos permissões 744.
+        Caso queiramos enviar por FTP, temos que enviar para a homefolder do user, e depois mover para /var/www/html, nunca devemos de mudar as permissões destes para 777!
+
+        ! NOTA neste caso só é necessário configurar o write_enable=yes no vsftpd no ficheiro de configuração (/etc/vsftpd.conf), fazemos systemctl restart vsftpd para depois enviar por filezilla.
+
+        Se quisermos crpara não ter que mover a pasta sempre para a pasta /var/www/html podemos criar logo diretamente na homefolder do nosso utilizador, uma pasta com os nosso ficheiros, e fazer o apache ir buscar estes ficheiros, por exemplo:
+        /home/linux/web/index.html
+        /home/linux/web/xpto.html
+
+        Para isso temos que fazer symbolic links, ou links simbólico, que vai ser um atalho para a pasta web que está em /home/linux/.
+
+        Para isso fazemos:
+        ln -s /home/linux/web /var/www/html/atalho
+
+        Se fizemos ls -l podemos ver que o tipo do ficheiro é l, e o shortcut com o nome atalho a apontar para /home/linux/web/
+
+        No apache, existe os seguintes ficheiros de Logs.
+
+        <strong>Apache2 MultiSite</strong>
+
+        Até aqui estivemos a criar um servidor para apenas um website, mas para criarmos um servidor com vários websites, temos que fazer algumas configurações para isso funcionar.
+
+        Também vamos trabalhar com o DNS, para dar um nome ao nosso website.
+
+        Passos a seguir
+        www.linuxgrsi.pt
+        criar os ficheiros onde alojar o site, tipo:
+        /linux/index.html
+        /linux/linux.html
+        existe dois ficheiros de configuração em duas localizações diferentes /etc/apache2/sites-available/ e /etc/apache2/sites-enabled/ onde nos sites enabled, links simbolicos para o available, ou seja. se quisermos tirar um site do ar, não apagamos nada do available mas sim deitamos abaico o link. Dentro do available que é onde vamos trabalhar, tem o ficheiro 000-default.conf que é o site por defeito do apache. Se quisermos o novo site, temos que fazer o copy do site padrão com o nome do site que quisermos, sendo o unico requisito do nome é que acabe em .conf.
+        cp 000-default.conf linux.conf
+        Dentro do ficheiro que acabamos de criar, descomentamos ServerName www.example.com e alteramos o URL para o que quisermos.
+        Exemplo:
+        ServerName www.linux.grsi.pt
+
+        Document Root é a localização da pasta onde vamos ter os ficheiros de programação deste site. Por defeito tem o /var/www/html, vamos alterar essa localização para por exemplo /linux/ que criamos anteriormente.
+        De seguida, em errorlog e custom log, alteramos o nome do ficheiro para error_linux.log e access_linux.log por exemplo, para não ter no mesmo ficheiro todos os logs do nosso servidor. É importante referir que mesmo não sendo obrigatório, devemos manter todos os os nossos ficheiros de configuração na pasta /var. Guardamos o ficheiro e vamos passar a deixar de editar o ficheiro de configuração do site, ficando ele assim:
+
+        vamos alterar o ficheiro /etc/apache2/apache2.conf que é o ficheiro mesmo de configurações do apache.
+        Na linha 170 temos o exemplo de um tag directory da seguinte forma:
+        <Directory /var/www/>
+            Options Indexes FollowSymLinks
+            AllowOverride None
+            Require all granted
+        </Directory>	
+        temos que alterar para por a localização que queremos, assim:
+
+        <Directory /linux/>
+            Options Indexes FollowSymLinks
+            AllowOverride None
+            Require all granted
+        </Directory>	
+        Sem este passo, o apache ia dar access forbidden quando tentamos aceder ao nosso site.
+
+        Se fizermos agora ls -l /etc/apache2/sites-enabled/ não vai ter nenhum link para o nosso site do linux.conf, para isso temos que criar um link manualmente, ou então, localizando em qualquer pasta, fazemos o seguinte comando.
+        a2ensite linux.conf
+        Depois de fazer este comando fazemos systemctl restart apache2 e se voltarmos a fazer o ls -l vemos que já tem o link.
+        No lado apache está tudo configurado, agora no windows temos que enganar o pc e os serviços de DNS, ou seja colocamos um ip e o nosso URL.
+        192.168.107.116 www.linuxgrsi.pt
+        O ficheiro hosts está em c:\windows\system32\drivers\etc\hosts
+        Por fim, no linux.conf, adicionamos DirectoryIndex e o nome do ficheiro a frente, para alterar a pagina index do site, por exemplo:
+        DirectoryIndex linux.html
+        Sempre que fizermos alterações no linux.conf, temos que fazer systemctl restart apache2.
+    
+        <strong>Apache2 IPs</strong>
+
+        Apache2 Bloquear IPs
+        Podemos bloquear o acesso a determinados sites através do ip de um host ou ip de umarede. Para isso temos de alterar o ficheiro de configuração do apache:
+        /etc/apache2/apache2.conf
+
+        Exemplos:
+        Para permitir o acesso a apenas um host (neste exemplo apenas o host com ip 172.22.13.125 tem acesso às páginas alojadas em /home):
+        Para permitir apenas uma rede ou um host, fazemos assim:
+
+        <Directory /linux/>
+            Options Indexes FollowSymLinks
+            AllowOverride None
+            Require ip 192.168.0.0/16 172.10.20.30
+        </Directory>	
+        uma rede (neste exemplo a rede 172.22.13.0/24 não tem acesso às páginas alojadas em /var/www/)
+        Se quisermos negar alguns ip's ou algumas redes, temos que adicionar uma tag <requireall> uma vez que não podemos ter dois require dentro da função:
+
+        <Directory /linux/>
+            Options Indexes FollowSymLinks
+            AllowOverride None
+            <RequireAll>
+                Require not ip 10.10.10.10
+                Require all granted
+            </RequireAll>
+        </Directory>	
+
+        <strong>AllowOverride</strong>
+
+        Isto permite a que utilizadores sem acesso root, possam alterar os ficheiros de apache que só o root tem acesso.
+        Primeiro temos que alterar em AllowOverride para all:
+
+        <Directory /linux/>
+            Options Indexes FollowSymLinks
+            AllowOverride All
+            Require all granted
+        </Directory>	
+        Reiniciamos o apache: systemctl restart apache2
+
+        Dentro do diretório do site, criamos um ficheiro .htaccess, e lá dentro fazemos as alterações que queremos, por exemplo alterar a pagina index do site para uma pagina chamada turma.html:
+        vim .htaccess
+
+        DirectoryIndex turma.html
+        Require ip 10.10.0.
+        Caso nos enganemos neste ficheiro, ele vai dar um erro "Internal Server Error" normalmente é um do ficheiro .htaccess.
+
+        Este ficheiro htaccess também faz override ao ficheiro de configuração.
+        Este ficheiro tem que ser um ficheiro escondido com um ponto.
+
+        Também podemos, caso o nosso site esteja inacabado por exemplo, criar um login que só apenas utilizadores autorizados terão acesso.
+
+        AuthName "Login Necessario"
+        AuthType basic
+        AuthUserFile /linux/.htpass
+        Require valid-user
+        AuthName é o nosso "Banner".
+        AuthType basic é o tipo de login, neste dá tanto para windows como linux e aparece-nos um popup.
+        AuthUserFile a localização das credenciais dos utilizadores permitidos, não necessita de estar na pasta do site nem se chamar htpass, convêm é estar escondido com um ponto.
+        Require valid-user autoriza os utilizadores no AuthUserFile.
+
+        Agora para adicionar os utilizadores a este ficheiro fazemos o seguinte comando na linha de comandos:
+        htpasswd -c /linux/.htpass linux
+        htpasswd -c cria um novo ficheiro na localização /linux/.htpass com o nome de utilizador linux
+
+        Depois de criado o ficheiro não podemos usar mais o -c uma vez que isto irá criar um novo ficheiro novamente apenas com o utilizador novo.
+        htpasswd /linux/.htpass grsip
+
+        Se quisermos um determinado utilizador ou utilizadores fazemos:
+
+        AuthName "Login Necessario"
+        AuthType basic
+        AuthUserFile /linux/.htpass
+        Require user linux linux2
+        Neste caso o grsip não consegue aceder ao site.
+
+        Para acedermos acesso a apenas uma pagina do site a certos utilizadores, temos que fazer da seguinte forma:
+
+        AuthName "Login Necessario"
+        AuthType basic
+        AuthUserFile /linux/.htpass
+        Require user linux
+        <files "turma.html">
+            Require user grsip
+        </files>
+        Neste caso apenas o utilizador grsip tem acesso a página turma.html.
+
+        Se quisermos determinar os grupos que têm acesso ao site fazemos:
+
+        AuthName "Login Necessario"
+        AuthType basic
+        AuthGroupFile /linux/.htgrp
+        AuthUserFile /linux/.htpass
+        Require group grupo1
+        Criamos o ficheiro com essse nome usado no htaccess e editamos-lo:
+
+        grupo1: linux
+        grupo2:grsip linux2
+        Assim, apenas os utilizadores no grupo1 (linux) vao ter acesso ao site.
+        Mas mesmo assim ele vai dar erro porque temos que adicionar o modulo, usando o seguinte comando:
+        a2enmod authz_groupfile
+
+        E reiniciamos o apache2 novamente:
+        systemctl restart apache2
+
+        
+    </p>
+</body>
+</html>

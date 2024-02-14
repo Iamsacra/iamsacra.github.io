@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Página Principal</title>
+	<link rel="stylesheet" href="/css_js/style.css"
+</head>
+<body>
+<header class="header">
+    <nav class="navbar">
+        <a class=Title>Scripts</a>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="https://github.com/Iamsacra" class="nav-link">Github</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://www.linkedin.com/in/saulbraga/" class="nav-link">Linkedin</a>
+            </li>
+            <li class="nav-item">
+                <a href="/main/pagina_principal.html" class="nav-link">Main</a>
+            </li>
+            <li class="nav-item">
+                <a href="/topics/linux/linux.html">
+					<img alt="Inglês" src="/imgs/1920px-Flag_of_the_United_Kingdom.svg.png"
+					width="23" height="12">
+				 </a>
+            </li>
+        </ul>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+</header>
+<script src="/css_js/navbar.js"></script>
+<p class=separator>.</p>
+
+    <div class=linksTopics_group>
+        <a class=linksTopics href="/topics/linux/linuxpt.html">..Voltar\ a\ Linux</a>
+        <p class=separator>.</p>
+    </div>
+ 	<p class=text_body_content>
+        <strong>Scripts</strong>
+
+        Script automount
+        Editamos o ficheiro que executa os scripts at login, esse ficheiro é o rc.local em etc:
+        vim /etc/rc.local
+
+        Dentro do ficheiro fazemos o seguinte o seguinte:
+
+        #! /bin/sh -e
+
+        # espera 10 segundos
+        sleep 10
+
+        # o/s script/s que queremos executar
+        mount -t cifs -o username=user1,password=123 //192.168.107.52/Partilha /mnt/PC_Windows/ [o script que queremos]
+        Agora temos que atribuir a premissão de execução com:
+        chmod +x /etc/rc.local
+
+        e agora quando reiniciarmos o debian vai executar o script
+
+        O que podemos fazer é criar o mesmo script dentro de um ficheiro sh, por exemplo script.sh, e colocar dentro do rc.local. para podermos ter mais que um script a correr no pc.
+
+        #!/bin/sh -e
+
+        /root/scripts/autoMount.sh
+        /root/scripts/nat.sh
+        # E outros exemplos de scripts
+        Não podemos esquecer de também colocar este script com as permissões de execução.
+
+        NAT Script
+        O script do NAT para o iptables é igual ao comando, mas está dentro do script para ser executado sempre que iniciarmos o computador, portanto é assim:
+
+        #!/bin/sh
+        iptables --table nat --append POSTROUTING --out-interface enp0s3 -j MASQUERADE
+
+    </p>
+</body>
+</html>

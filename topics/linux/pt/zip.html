@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Página Principal</title>
+	<link rel="stylesheet" href="/css_js/style.css"
+</head>
+<body>
+<header class="header">
+    <nav class="navbar">
+        <a class=Title>ZIP</a>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="https://github.com/Iamsacra" class="nav-link">Github</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://www.linkedin.com/in/saulbraga/" class="nav-link">Linkedin</a>
+            </li>
+            <li class="nav-item">
+                <a href="/main/pagina_principal.html" class="nav-link">Main</a>
+            </li>
+            <li class="nav-item">
+                <a href="/topics/linux/linux.html">
+					<img alt="Inglês" src="/imgs/1920px-Flag_of_the_United_Kingdom.svg.png"
+					width="23" height="12">
+				 </a>
+            </li>
+        </ul>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+</header>
+<script src="/css_js/navbar.js"></script>
+<p class=separator>.</p>
+
+    <div class=linksTopics_group>
+        <a class=linksTopics href="/topics/linux/linuxpt.html">..Voltar\ a\ Linux</a>
+        <p class=separator>.</p>
+    </div>
+ 	<p class=text_body_content>
+        <strong>ZIP</strong>
+
+        A sintaxe do comando é a seguinte:
+        zip arquivo.zip arquivos_ou_pastas_a_comprimir
+        
+        Para descompactar usamos o comando unzip:
+        unzip arquivo.zip
+        
+        O comando unzip não cria um pasta por defeito, para colocar todo o conteúdo do zip temos que criar a pasta previamente.
+        Para listar o conteúdo de um ficheiro “zipado” usamos a opção –sf, tal como:
+        zip -sf arquivo.zip
+        
+        O comando zip só comprime a pasta e não todo o seu conteúdo dentro dele, para comprimir a pasta e todo o seu conteúdo temos que usar a opção –r:
+        zip -r arquivo.zip /home/
+
+
+    </p>
+</body>
+</html>

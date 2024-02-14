@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Página Principal</title>
+	<link rel="stylesheet" href="/css_js/style.css"
+</head>
+<body>
+<header class="header">
+    <nav class="navbar">
+        <a class=Title>TAR</a>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="https://github.com/Iamsacra" class="nav-link">Github</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://www.linkedin.com/in/saulbraga/" class="nav-link">Linkedin</a>
+            </li>
+            <li class="nav-item">
+                <a href="/main/pagina_principal.html" class="nav-link">Main</a>
+            </li>
+            <li class="nav-item">
+                <a href="/topics/linux/linux.html">
+					<img alt="Inglês" src="/imgs/1920px-Flag_of_the_United_Kingdom.svg.png"
+					width="23" height="12">
+				 </a>
+            </li>
+        </ul>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+</header>
+<script src="/css_js/navbar.js"></script>
+<p class=separator>.</p>
+
+    <div class=linksTopics_group>
+        <a class=linksTopics href="/topics/linux/linuxpt.html">..Voltar\ a\ Linux</a>
+        <p class=separator>.</p>
+    </div>
+ 	<p class=text_body_content>
+        <strong>Sem compressão</strong>
+
+        Para agrupar ficheiros ou pastas sem comprimir, na pasta que estamos posicionados utilizamos o seguinte comando:
+        tar -cvf arquivo.tar ficheiros_e_pastas
+        -c: significa create
+        -v: significa verbose, este não é obrigatório usar, mas é útil uma vez que nos diz todos os ficheiros que foram adicionados ao arquivo.
+        -f: significa file
+        arquivo.tar: nome que queremos dar ao arquivo tar
+        ficheiros_e_pastas: por fim adicionamos todas os ficheiros e pastas que queremos para colocar no arquivo tar.
+
+        Se quisermos indicar outro caminho onde criar o arquivo, escolhemos esse caminho, por exemplo:
+        tar -cvf /home/linux/arquivo.tar ficheiros_e_pastas
+
+        Para extrair um ficheiro tar, utilizamos o seguinte comando:
+        tar -xvf arquivo.tar
+
+        Para colocar um ficheiro dentro de um ficheiro ou pasta já agrupado, podemos usar o seguinte comando:
+        tar -rvf arquivo.tar outros_ficheiros_e_outras_pastas
+        -r: significa append, ou seja acrescentar ao ficheiro.
+        Para listar os ficheiros dentro do arquivo usamos o seguinte comando:
+        tar -tvf arquivo.tar
+
+        <strong>Com compressão</strong>
+
+        Os comandos neste caso são semelhantes, só tendo que acrescentar um z.
+        tar -zcvf arquivo.tar.gz ficheiros_e_pastas
+        -z: significa gzip, outro meio de compressão que iremos falar mais para a frente.
+        .tar.gz: deixamos de usar apenas tar e acrescentamos uma vez que é a extensão padrão do gzip.
+
+        Para extrair para a pasta atual usamos o comando:
+        tar -zxvf arquivo.tar.gz
+        Para extrair para outra pasta:
+        tar -zxvf arquivo.tar.gz:C /root/
+        -C: significa directory, usado para apontar para outro diretório.
+        Para listar o conteúdo de um arquivo, o comando é igual se for comprimido ou não:
+        tar -tvf arquivo.tar.gz      
+
+
+    </p>
+</body>
+</html>

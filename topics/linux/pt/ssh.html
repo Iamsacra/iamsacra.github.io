@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Página Principal</title>
+	<link rel="stylesheet" href="/css_js/style.css"
+</head>
+<body>
+<header class="header">
+    <nav class="navbar">
+        <a class=Title>SSH</a>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="https://github.com/Iamsacra" class="nav-link">Github</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://www.linkedin.com/in/saulbraga/" class="nav-link">Linkedin</a>
+            </li>
+            <li class="nav-item">
+                <a href="/main/pagina_principal.html" class="nav-link">Main</a>
+            </li>
+            <li class="nav-item">
+                <a href="/topics/linux/linux.html">
+					<img alt="Inglês" src="/imgs/1920px-Flag_of_the_United_Kingdom.svg.png"
+					width="23" height="12">
+				 </a>
+            </li>
+        </ul>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+</header>
+<script src="/css_js/navbar.js"></script>
+<p class=separator>.</p>
+
+    <div class=linksTopics_group>
+        <a class=linksTopics href="/topics/linux/linuxpt.html">..Voltar\ a\ Linux</a>
+        <p class=separator>.</p>
+    </div>
+ 	<p class=text_body_content>
+        <strong>SSH</strong>
+
+        Para instalar o ssh no debian (ou sistemas operativos baseados em debian) usamos o:
+        apt install ssh
+        OU
+        apt install openssh-server
+
+        Ficheiro de configurações: /etc/ssh/sshd_config
+        <strong>Possíveis configurações SSH</strong>
+        
+        Porta: aqui podemos alterar a porta padão que o SSH utiliza.
+        #Port 22(linha ): temos que descomentar a linha, e alteramos para a porta que entendermos, por padrão está na porta 22.
+        AllowUsers user1 user2 (temos que criar): isto permite apenas os utilizadores que pretendermos utilizar o serviço de SSH.
+        AllowGroups grp1 grp2 (temos que criar): isto permite apenas os grupos que pretendermos utilizar o serviço de SSH.
+        DenyUsers user1 user2 (temos que criar): semelhante ao AllowUsers, isto nega os utilizadores que não queremos que utilizem o serviço SSH.
+        DenyGroups grp1 grp2 (temos que criar): semelhante ao AllowGroups, isto nega os grupos que não queremos que utilizem o serviço SSH.
+        É redundante utilizar os dois, uma vez que ao negarmos certos users os outros são permitidos e vice versa.
+
+        Por defeito o utilizador root não pode utilizar o serviço SSH, por razões de segurança, portanto se queremos que o root utilize o serviço SSH temos que ativar essa opção.
+        #PermitRootLogin prohibit-password (linha ): aqui temos que descomentar a linha e alterar para PermitRootLogin yes.
+        
+        <strong>Pós-configurações</strong>
+
+        Para ativar as configurações realizadas temos que utilizar o seguinte comando.
+        systemctl restart ssh: isto recomeça o serviço, com as novas configurações
+        systemctl status ssh: para vermos se todas as configurações foram bem feitas, se tudo estiver correto diz (active). Se por algum motivo houver um erro e não disser isso, a forma mais fácil de descobrir o erro neste caso é usando o seguinte comando.
+        journalctl –xe
+
+        <strong>Aceder por SSH via terminal ou putty</strong>
+        
+        Para aceder via SSH pela shell do linux, ou cmd do windows temos que utilizar o seguinte comando.
+        ssh username@ip_adress –p port_number
+        username: nome de utilizador que queremos usar.
+        Ip_adress: ip da máquina destino
+        Port_number: a porta que configuramos, se deixamos por defeito a porta 22, não é necessário dar a flag –p nem o número da porta.
+
+        <strong>SCP</strong>
+        Para enviar ficheiros atraves de SSH, usamos secure copy ou SCP.
+        scp –P port_number /ficheiro_a_enviar user_maquina_cliente@ip_cliente:/localização_a_copiar
+
+
+    </p>
+</body>
+</html>

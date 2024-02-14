@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Página Principal</title>
+	<link rel="stylesheet" href="/css_js/style.css"
+</head>
+<body>
+<header class="header">
+    <nav class="navbar">
+        <a class=Title>Users, Groups, Passwords</a>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="https://github.com/Iamsacra" class="nav-link">Github</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://www.linkedin.com/in/saulbraga/" class="nav-link">Linkedin</a>
+            </li>
+            <li class="nav-item">
+                <a href="/main/pagina_principal.html" class="nav-link">Main</a>
+            </li>
+            <li class="nav-item">
+                <a href="/topics/linux/linux.html">
+					<img alt="Inglês" src="/imgs/1920px-Flag_of_the_United_Kingdom.svg.png"
+					width="23" height="12">
+				 </a>
+            </li>
+        </ul>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+</header>
+<script src="/css_js/navbar.js"></script>
+<p class=separator>.</p>
+
+    <div class=linksTopics_group>
+        <a class=linksTopics href="/topics/linux/linuxpt.html">..Voltar\ a\ Linux</a>
+        <p class=separator>.</p>
+    </div>
+ 	<p class=text_body_content>
+        <strong>Utilizadores, passwords e grupos</strong>
+        
+        /etc/passwd: Ficheiro que contém todos os utilizadores do sistema (um por linha)
+        /etc/group: Ficheiro que contém todos os grupos de utilizadores do sistema e os utilizadores que pertencem a cada grupo (um por linha)
+        /etc/shadow: Ficheiro que contém as passwords (encriptadas) dos utilizadores
+
+        <strong>Alterar utilizadores e grupos</strong>
+        passwd utilizador: comando para alterar a password de um utilizador. O root pode alterar a password de qualquer utilizador. Cada utilizador para alterar a sua própria password usa apenas o comando passwd
+        adduser utilizador: comando para criar utilizadores
+        deluser utilizador: comando para eliminar utilizadores
+        deluser utilizador --remove-home: comando para eliminar utilizadores e a sua homefolder ao mesmo tempo
+        addgroup grupo: comando para adicionar grupos de utilizadores
+        adduser utilizador grupo: comando para adicionar utilizadores a grupos
+        deluser utilizador grupo: comando para retirar um utilizador de um grupo de utilizadores
+        delgroup grupo: comando para eliminar grupos de utilizadores
+        usermod:g grupo utilizador: comando para alterar o grupo primário de um utilizador
+        id: mostra os grupos a que o utilizador pertence
+
+        
+    </p>
+</body>
+</html>

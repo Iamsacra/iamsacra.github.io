@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Página Principal</title>
+	<link rel="stylesheet" href="/css_js/style.css"
+</head>
+<body>
+<header class="header">
+    <nav class="navbar">
+        <a class=Title>AT</a>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="https://github.com/Iamsacra" class="nav-link">Github</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://www.linkedin.com/in/saulbraga/" class="nav-link">Linkedin</a>
+            </li>
+            <li class="nav-item">
+                <a href="/main/pagina_principal.html" class="nav-link">Main</a>
+            </li>
+            <li class="nav-item">
+				<a href="/topics/linux/linux.html">
+					<img alt="Inglês" src="/imgs/1920px-Flag_of_the_United_Kingdom.svg.png"
+					width="23" height="12">
+				 </a>
+            </li>
+        </ul>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+</header>
+<script src="/css_js/navbar.js"></script>
+<p class=separator>.</p>
+
+    <div class=linksTopics_group>
+        <a class=linksTopics href="/topics/linux/linuxpt.html">..Voltar\ a\ Linux</a>
+        <p class=separator>.</p>
+    </div>
+ 	<p class=text_body_content>
+        <strong>AT</strong>
+
+        Instalar o AT.
+        apt install at
+
+        Serve para correr uma vez e depois desaparece. Se quisermos algo para programar de x em x tempo, usamos o Linux - Crontab.
+        Para executar daqui a 5 minutos. Mal introduzimos o enter, ele começa a contar o tempo.
+        at now + 5 minutes
+
+        Também podemos usar para dias, semanas, meses entre outros:
+        at now + 5 days
+        at now + 5 weeks
+        at now + 5 months
+        at 16:00 + 5 weeks
+
+        Ou para dias e horas especificas:
+        at Hora DiaDaSemana
+        at 16:00 tue
+
+        at Hora Dia Mês
+        at 22:00 15 jun
+
+        at Hora Dia Mês Ano
+        at 22:00 15 jun 2023
+
+        at Hora Mês/Dia/Ano
+        at 22:00 12/31/2023
+
+        Podemos também utilizar ingles corrente:
+        at noon
+        at midnight tomorrow
+        at teatime - as 16h
+
+        e aparece uma prompt (at>) agora vamos agendar uma tarefa, por exemplo:
+        at> date > /root/at.txt
+
+        Para agendar e confirmar usar a combinação de teclas ctrl + D e ele sairá da prompt.
+
+        Para ver as tarefas agendadas usamos no terminal o seguinte comando:
+        atq
+
+        output é o seguinte:
+        NumDaTarefa__Data_a_Utilizador
+
+        por exemplo:
+        2 Sun Jan 30 13:54:00 2022 a root
+        3 Sun Jan 30 13:58:00 2022 a linux
+
+        ! Nota: o root consegue ver todas as tarefas agendadas de todos os utilizadores
+
+        Todos os utilizadores podem usar o at, porem só podem fazer, tal como no crontab, todos os comandos que poderiam fazer normalmente.
+
+        Para ver o que vai ser executado para cada tarefa usamos o seguinte comando:
+        at -c NumDaTarefa
+
+        Por exemplo:
+        at -c 2
+
+        ! Nota: não dá para verificar as tarefas que já foram executadas.
+
+        Para remover uma tarefa usamos o comando:
+        atrm NumDaTarefa
+
+        Por exemplo:
+        atrm 2
+
+        Localização dos ficheiros at:
+        /var/spool/cron/atjobs/
+
+        Aqui podemos alterar os ficheiros caso nos tenhamos enganado a agendar.
+        Os primeiros 5 valores, ou seja: a00005, por exemplo, é o numero da tarefa.
+
+        Também nessa pasta temos um ficheiro chamado .SEQ que guarda o número das tarefas. Por exemplo: 00005.
+
+        Para restringir os utilizadores que podem usar o AT, criamos o seguinte ficheiro:
+        touch /etc/at.allow
+
+        o ficheiro /etc/at.deny já existe com os utilizadores do sistema que não podem fazer login, por motivos de segurança.
+        
+    </p>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Página Principal</title>
+	<link rel="stylesheet" href="/css_js/style.css"
+</head>
+<body>
+<header class="header">
+    <nav class="navbar">
+        <a class=Title>Find</a>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="https://github.com/Iamsacra" class="nav-link">Github</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://www.linkedin.com/in/saulbraga/" class="nav-link">Linkedin</a>
+            </li>
+            <li class="nav-item">
+                <a href="/main/pagina_principal.html" class="nav-link">Main</a>
+            </li>
+            <li class="nav-item">
+                <a href="/topics/linux/linux.html">
+					<img alt="Inglês" src="/imgs/1920px-Flag_of_the_United_Kingdom.svg.png"
+					width="23" height="12">
+				 </a>
+            </li>
+        </ul>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+</header>
+<script src="/css_js/navbar.js"></script>
+<p class=separator>.</p>
+
+    <div class=linksTopics_group>
+        <a class=linksTopics href="/topics/linux/linuxpt.html">..Voltar\ a\ Linux</a>
+        <p class=separator>.</p>
+    </div>
+ 	<p class=text_body_content>
+        <strong>Find</strong>
+
+        O comando find serve para procurar, no sistema Linux, ficheiros ou pastas baseados em condições que são colocadas nas opções dos comandos. Podem ser pocurados ficheiros ou pastas através de nomes, permissões, utilizadores, tipo de ficheiro, data, tamanho e outras.
+        Procurar ficheiros por nome a partir da pasta actual:
+        find . –name ficheiro.txt
+        
+        Procurar ficheiros por nome em toda a pasta /home:us, ou canal de comunicação detetado pela bios
+        find /home –name ficheiro.txt
+        
+        Procurar ficheiros por nome ignorando minusculas e maiusculas:
+        find /home –iname ficheiro.txt
+        
+        Procurar pastas por nome:
+        find / -type d –name Formacao
+        
+        Procurar ficheiros por nome:
+        find . -type f –name ficheiro.txt
+        
+        Procurar os ficheiros de uma extensão:
+        find / -type f –name “*.txt”
+        
+        Procurar ficheiros através de permissões:
+        find . -type f -perm 0777
+        
+        Procurar ficheiros por utilizador dono:
+        find / -user root -name “*.txt”
+        
+        Procurar todos os ficheiros que pertencem a um utilizador:
+        find /home –user grsi
+        
+        Procurar ficheiros por grupo de utilizadores:
+        find /home -group developer
+        
+        Procurar ficheiros modificados na última hora:
+        find / -mmin -60
+        
+        Procurar ficheiros por tamanho (maiores que 50 MB):
+        find / -size +50M
+        
+        Procurar ficheiros por tamanho (entre 50 MB e 100MB):
+        find / -size +50M -size -100M
+        
+        Procurar ficheiros por determinada extensão mas apenas até ao 4º nível de profundidade:
+        find / -maxdepth 4 –iname “*.php”
+
+
+    </p>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Página Principal</title>
+	<link rel="stylesheet" href="/css_js/style.css"
+</head>
+<body>
+<header class="header">
+    <nav class="navbar">
+        <a class=Title>IP</a>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="https://github.com/Iamsacra" class="nav-link">Github</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://www.linkedin.com/in/saulbraga/" class="nav-link">Linkedin</a>
+            </li>
+            <li class="nav-item">
+                <a href="/main/pagina_principal.html" class="nav-link">Main</a>
+            </li>
+            <li class="nav-item">
+                <a href="/topics/linux/linux.html">
+					<img alt="Inglês" src="/imgs/1920px-Flag_of_the_United_Kingdom.svg.png"
+					width="23" height="12">
+				 </a>
+            </li>
+        </ul>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+</header>
+<script src="/css_js/navbar.js"></script>
+<p class=separator>.</p>
+
+    <div class=linksTopics_group>
+        <a class=linksTopics href="/topics/linux/linuxpt.html">..Voltar\ a\ Linux</a>
+        <p class=separator>.</p>
+    </div>
+ 	<p class=text_body_content>
+        <strong>IP Estático</strong>
+
+        ip address ou ip a: vê o ip e a máscara de rede
+        ip route ou ip r: vê o Default gateway
+        cat /etc/resolv.conf: vê o DNS
+
+        Nomes das placas de rede:
+        enp0s3
+        en- ethernet
+
+        p - pci //outros possíveis são:
+        s - PCI Express
+        o - onboard
+
+        0 - bus, ou canal de comunicação detetado pela bios
+
+        s3 - slot 3, ou slot na motherboard.
+
+
+        Para alterar de IP por DHCP para ip fixo temos que ir a
+        vim /etc/network/interfaces
+        alteramos de:
+
+        allow-hotplug enp0s3
+        iface enp0s3 inet dhcp
+        Para:
+
+        allow-hotplug enp0s3
+        iface enp0s3 inet static
+        address 192.168.107.51
+        netmask 255.255.0.0
+        gateway 192.168.107.251
+        dns-nameservers 8.8.8.8 1.1.1.1
+
+        ! Nota O address, netmask e gateway depende de rede para rede.
+
+        Libertar os IPs:
+        ifdown enp0s3 desativa a placa
+        ifup enp0s3 ativa a placa
+
+        dhclient -r enp0s3 liberta o ip
+        dhclient enp0s3 pede o novo ip
+
+        Para resolver os dns usamos:
+        apt install resolvconf
+
+        Isto é porque os dns mesmo mudando no ficheiro interfaces este não altera, temos que instalar este programa para resolver isso
+
+        Para colocar uma segunda placa, e esta ter um ip e receber automaticamente por dhcp usamos:
+        allow-hotplug enp0s8
+        iface enp0s8 inet dhcp
+
+        ! Nota se adicionarmos uma segunda placa e também usarmos static, só damos ip e netmask, senão corremos o risco de não ter internet.
+                
+
+
+        
+</p>
+</body>
+</html>

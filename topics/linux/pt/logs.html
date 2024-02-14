@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Página Principal</title>
+	<link rel="stylesheet" href="/css_js/style.css"
+</head>
+<body>
+<header class="header">
+    <nav class="navbar">
+        <a class=Title>Logs</a>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="https://github.com/Iamsacra" class="nav-link">Github</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://www.linkedin.com/in/saulbraga/" class="nav-link">Linkedin</a>
+            </li>
+            <li class="nav-item">
+                <a href="/main/pagina_principal.html" class="nav-link">Main</a>
+            </li>
+            <li class="nav-item">
+                <a href="/topics/linux/linux.html">
+					<img alt="Inglês" src="/imgs/1920px-Flag_of_the_United_Kingdom.svg.png"
+					width="23" height="12">
+				 </a>
+            </li>
+        </ul>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+</header>
+<script src="/css_js/navbar.js"></script>
+<p class=separator>.</p>
+
+    <div class=linksTopics_group>
+        <a class=linksTopics href="/topics/linux/linuxpt.html">..Voltar\ a\ Linux</a>
+        <p class=separator>.</p>
+    </div>
+ 	<p class=text_body_content>
+        <strong>Logs</strong>
+
+        /var/log/syslog - ficheiro principal de logs do sistema, uma concatenação de tudo
+
+        tail -f /var/log/syslog - ve em tempo real todos os logs do sistema.
+
+        grep cron /var/log/syslog - para ver apenas as linhas que têm cron no ficheiro.
+
+        <strong>Apache</strong>
+
+        O Apache também tem ficheiro de logs para erros e acessos ao nosso site. Podemos os ver nas seguintes localizações.
+        /var/log/apache2/error.log - Erro de acesso ao nosso site por parte de terceiros.
+
+        /var/log/apache2/access.log - Regista todos os ips, browsers, hora e qualquer informação de quem tentar entrar no nosso site.
+        
+    </p>
+</body>
+</html>

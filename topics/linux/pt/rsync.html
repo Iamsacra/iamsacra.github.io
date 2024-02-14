@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Página Principal</title>
+	<link rel="stylesheet" href="/css_js/style.css"
+</head>
+<body>
+<header class="header">
+    <nav class="navbar">
+        <a class=Title>Rsync</a>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="https://github.com/Iamsacra" class="nav-link">Github</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://www.linkedin.com/in/saulbraga/" class="nav-link">Linkedin</a>
+            </li>
+            <li class="nav-item">
+                <a href="/main/pagina_principal.html" class="nav-link">Main</a>
+            </li>
+            <li class="nav-item">
+                <a href="/topics/linux/linux.html">
+					<img alt="Inglês" src="/imgs/1920px-Flag_of_the_United_Kingdom.svg.png"
+					width="23" height="12">
+				 </a>
+            </li>
+        </ul>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+</header>
+<script src="/css_js/navbar.js"></script>
+<p class=separator>.</p>
+
+    <div class=linksTopics_group>
+        <a class=linksTopics href="/topics/linux/linuxpt.html">..Voltar\ a\ Linux</a>
+        <p class=separator>.</p>
+    </div>
+ 	<p class=text_body_content>
+        <strong>Rsync</strong>
+
+        Serve para fazer backups no servidor.
+
+        Objetivos dos backups: Devem ser feitos para vários servidores e se possível para localizações remotas.
+        O Rsync usa o protocolo SSH e secure copy.
+        Ele é, por defeito, incremental, ou seja, se no segundo backup criarmos um ficheiro novo, ele só irá atualizar o que é novo.
+        
+        Se quisermos fazer backup de uma máquina para outra temos que ter ssh na máquina para onde vamos fazer o backup, e rsync nas duas.
+        
+        Agora imaginando que temos os nossos backups numa pasta do sistema com o mesmo nome.
+        
+        vamos fazer um backup para outro servidor:
+        rsync -avzh /backup/ utilizadorServidor2@IPMáquinaDestino:/Destino
+        
+        exemplo:
+        rsync -avzh /backups/ linux@192.168.107.106:/home/linux/
+        -a preserva os timestamps
+        -v verbose, diz o que vamos fazendo
+        -z comprime na origem e descomprime no destino
+        -h mostra o tamanho dos ficheiros ou da pasta
+        
+        Só podemos enviar por padrão para a homefolder do utilizador. Para mudar o destino temos que criar uma pasta onde quisermos e com o chown mudamos o dono e grupo dono.
+        
+        Para poder copiar a pasta e todo o seu conteudo tiramos a barra do fim. Ficando assim
+        Exemplo:
+        rsync -avzh /backups linux@192.168.107.106:/destino/
+        
+        Se quisermos mudar a porta no ssh e enviar por rsync, temos que obrigatóriamente colocar o seguinte (-e "ssh -p901").
+        Exemplo:
+        rsync -avzh -e "ssh -p901" /backups linux@192.168.107.106:/destino/
+        
+        Para ir buscar algum ficheiro que queiramos da segunda máquina para a primeira temos que fazer o comando inverso:
+        rsync -avzh linux@Maquina2:/FicheiroQueQueremosCopiar /DestinoMaquina1
+        
+        Exemplo:
+        rsync -avzh linux@192.168.107.132:/linux22.tar.gz /root
+        
+        Caso queiramos usar o comando no crontab, não é possível uma vez que pede palavra passe.
+        Para isso temos que gerar uma chave entre dois utilizadores das duas máquinas. Apesar de ser uma baixa breja de segurança, é necessário na mesma ter acesso ao root do server 1.
+        
+        Gerando a chave usa-se o seguinte comando:
+        ssh-keygen -t rsa
+        fazemos enter para a localização, password e a confirmação, deixando tudo de padrão e sem palavra passe:
+        
+        Depois disso fazemos o seguinte comando
+        ssh-copy-id -i /root/.ssh/id_rsa.pub linux@192.168.107.106
+        
+        se tivermos alterado a porta do ssh, temos que colocar a porta específica antes do hostname
+        Exemplo:
+        ssh-copy-id -i /root/.ssh/id_rsa.pub -p 901 linux@192.168.107.106
+        
+        Colocamos uma ultima vez a palavra passe do utilizador da máquina 2. Agora se tentarmos entrar por ssh já não vamos precisar de password.
+    </p>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Página Principal</title>
+	<link rel="stylesheet" href="/css_js/style.css"
+</head>
+<body>
+<header class="header">
+    <nav class="navbar">
+        <a class=Title>Grep</a>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="https://github.com/Iamsacra" class="nav-link">Github</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://www.linkedin.com/in/saulbraga/" class="nav-link">Linkedin</a>
+            </li>
+            <li class="nav-item">
+                <a href="/main/pagina_principal.html" class="nav-link">Main</a>
+            </li>
+            <li class="nav-item">
+                <a href="/topics/linux/linux.html">
+					<img alt="Inglês" src="/imgs/1920px-Flag_of_the_United_Kingdom.svg.png"
+					width="23" height="12">
+				 </a>
+            </li>
+        </ul>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+</header>
+<script src="/css_js/navbar.js"></script>
+<p class=separator>.</p>
+
+    <div class=linksTopics_group>
+        <a class=linksTopics href="/topics/linux/linuxpt.html">..Voltar\ a\ Linux</a>
+        <p class=separator>.</p>
+    </div>
+ 	<p class=text_body_content>
+        <strong>Grep</strong>
+
+        O grep é um comando em Linux que permite procurar palavras ou expressões dentro de um ficheiro. Desta forma, se quisermos encontrar uma palavra específica dentro de ficheiros, não precisamos de abrir o ficheiro para verificar se existe essa mesma palavra no seu conteúdo. Também podemos usar este comando para nos mostrar apenas linhas de um comando que contenham determinada palavra. O comando grep quando executado, devolve-nos a linha completa onde encontra a palavra ou expressão indicada.
+
+        Procurar a palavra grsi num ficheiro:
+        grep grsi /etc/passwd
+
+        Procurar apenas a palavra completa grsi num ficheiro:
+        grep –w grsi /etc/group
+
+        Procurar a expressão Network Management num ficheiro:
+        grep –w “Network Management” /etc/passwd
+
+        Procurar uma palavra num ficheiro ignorando minusculas e maiusculas:
+        grep –i root /etc/group
+
+        Procurar uma palavra em todos os ficheiros de uma pasta (pasta e subpastas):
+        grep –r root /etc
+
+        Procurar todas as linhas em que não exista determinada palavra: grep
+        –v nologin /etc/passwd
+
+        Procurar todas as linhas que começam por um caracter ou palavra: grep
+        ^system /etc/passwd
+
+        Procurar todas as linhas que terminam por um determinado caracter ou palavra:
+        grep nologin$ /etc/passwd
+
+        
+    </p>
+</body>
+</html>

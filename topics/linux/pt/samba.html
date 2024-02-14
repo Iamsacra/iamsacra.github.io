@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Página Principal</title>
+	<link rel="stylesheet" href="/css_js/style.css"
+</head>
+<body>
+<header class="header">
+    <nav class="navbar">
+        <a class=Title>Samba</a>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="https://github.com/Iamsacra" class="nav-link">Github</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://www.linkedin.com/in/saulbraga/" class="nav-link">Linkedin</a>
+            </li>
+            <li class="nav-item">
+                <a href="/main/pagina_principal.html" class="nav-link">Main</a>
+            </li>
+            <li class="nav-item">
+                <a href="/topics/linux/linux.html">
+					<img alt="Inglês" src="/imgs/1920px-Flag_of_the_United_Kingdom.svg.png"
+					width="23" height="12">
+				 </a>
+        </ul>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+</header>
+<script src="/css_js/navbar.js"></script>
+<p class=separator>.</p>
+
+    <div class=linksTopics_group>
+        <a class=linksTopics href="/topics/linux/linuxpt.html">..Voltar\ a\ Linux</a>
+        <p class=separator>.</p>
+    </div>
+ 	<p class=text_body_content>
+        <strong>Samba sem Autorização</strong>
+
+        Para instalar o samba usamos:
+        apt install samba
+
+        Para alterar as configurações do samba fazemos
+        vim /etc/samba/smb.conf
+
+        # Nome da partilha
+        [linux2122] 
+
+        # Comentário
+        comment = pasta partilha formandos
+
+        #Pasta que vamos partilhar *Obrigatório
+        path = /xpto/pasta1/
+
+        # Utilizador não vai ter que autenticar com palavra-passe *Obrigatório
+        guest ok = yes
+
+        # Se a pasta é visivel ou não, ou se é uma partilha escondida *Defeito é yes
+        browseable = yes
+
+        # Assim a pasta já não fica visível, mas continua lá, temos que aceder por \\ip_address\linux2122.
+        browseable = no
+
+        # Com isto, os utilizadores só podem ler, mesmo com todas as premissões na pasta *Por defeito é yes, ou seja fica só premissões de leitura 
+        read only = yes
+
+        # premissões de ler e escrever.
+        read only = no
+        Para reiniciar o samba fazemos:
+        systemctl restart smbd
+
+        Agora só temos que criar a pasta no caminho indicado.
+
+        Para todos poderem escrever na pasta, fazemos:
+        chmod -R 777 /xpto/pasta1
+
+        
+        <strong>Samba com Autorização</strong>
+
+        Podemos criar uma pasta e um ficheiro que queremos partilhar:
+        mkdir /linux2122
+        touch /linux2122/file.txt
+
+        e mudamos a pasta novamente para ter todas as premissões, alteramos as premissões nas configurações do samba em si:
+        chmod -R 777 /linux2122
+
+        Neste caso vamos fazer guest ok = no para pedir palavra passe no ficheiro de configuração /etc/samba/smb.conf:
+
+        [Partilha1]
+        comment = pasta linux
+        guest ok = no
+        path = /linux2122
+        read only = no
+        Para ver os utilizadores que estão habilitados a usar o samba usamos:
+        pdbedit -L
+
+        para adicionar os utilizadores ao samba fazemos, por exemplo para o root:
+        smbpasswd -a root
+
+        ! Nota para adicionar os utilizadores ao samba, estes têm que já existir.
+        ! Nota 2 Quando acedemos com utilizador depois de autenticar, vai criar uma pasta com o nome do utilizador, e não nos vai deixar alterar o utilizador
+
+        Para alterar o utilizador, na linha de comandos do windows fazemos:
+        net use * /delete
+
+        isto também limpa a cache.
+        Para confirmar usamos:
+        klist purge
+
+        Limitar utilizadores por partilha
+        para isso no ficheiro de configuração adicionamos os utilizadores ou grupo que queremos, assim:
+        valid users = linux, pedro, @grupo
+        com o @ escolhemos grupos.
+
+        Para não permitir utilizadores usamos o invalid users, assim:
+        invalid users = linux, pedro, @grupo
+
+        ! Nota0 os valid e invalid users só faz sentido com autenticação.
+
+        Premissões ler e escrever por utilizador:
+        Para escolher os utilizadores que podem ler e escrever usamos o read list e write list, assim:
+        read list = linux
+        Estes só podem ler
+
+        write list = pedro, @grupo
+        Estes podem ler e escrever.
+
+        Limitar por ips:
+        para escolher os ips que queremos que tenham acesso a partilha fazemos:
+        hosts allow = 192.168.107.250, 10.0.0.0/16
+        Podemos limitar para uma máquina específica como o primeiro caso de 192.168.107.250, ou para uma rede específica como no segundo caso 10.0.0.0/16.
+
+        também podemos negar ips da mesma forma:
+        hosts deny = 192.168.107.250, 10.0.0.0/16
+
+        Remover o mapeamento das homefolders que vem por defeito
+        Por defeito, o samba partilha as homefolders dos utilizadores, para remover essas partilhas temos que comentar linhas em /etc/samba/smb.conf
+        Ou seja, no vim ou nano vamos a linhas 169 e comentamos as seguintes linhas:
+        [homes] linha 169
+        comment = Home Directories linha 170
+        browseable = no linha 171
+        read only = yes linha 175
+        create mask = 0700 linha 179
+        directory mask = 0700 linha 183
+        valid users = %S linha 190
+
+        Novo mapeamento das homefolders
+        Para criar um novo mapeamento fazemos da seguinte forma:
+        [HomeFolders]
+        Comment = Homefolders
+        path = /home/%u isto serve para mapear todas as homefolders de cada utilizador, não mapeia a do root
+        browsable = yes ou no escolhemos nos
+        guest ok = no ou yes escolhemos nos
+        read only = no
+
+        Mount uma pasta windows
+        se for preciso primeiro instalamos: apt install cifs-utils
+        Antes de montarmos temos que criar a pasta onde vai ser mapeado a pasta windows
+        mkdir /mnt/PC_Windows/
+
+        mount -t cifs -o username=user1,password=123 //192.168.107.52/Partilha /mnt/PC_Windows/
+        Por partes:
+        mount comando em si
+        -t
+        cifs
+        -o
+        username=user1, password=123 referente a maquina windows
+        //192.168.107.52/Partilha ip e pasta que queremos que seja partilhada do windows, esta é uma pasta já partilhada na rede
+        /mnt/PC_Windows/ para onde queremos mapear a pasta
+
+        Porém, este comando é volátil, portanto tinhamos que o usar sempre que reiniciassemos o computador, podemos autimizar esse processo com scripts.
+
+    </p>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Página Principal</title>
+	<link rel="stylesheet" href="/css_js/style.css"
+</head>
+<body>
+<header class="header">
+    <nav class="navbar">
+        <a class=Title>Crontab</a>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="https://github.com/Iamsacra" class="nav-link">Github</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://www.linkedin.com/in/saulbraga/" class="nav-link">Linkedin</a>
+            </li>
+            <li class="nav-item">
+                <a href="/main/pagina_principal.html" class="nav-link">Main</a>
+            </li>
+            <li class="nav-item">
+                <a href="/topics/linux/linux.html">
+					<img alt="Inglês" src="/imgs/1920px-Flag_of_the_United_Kingdom.svg.png"
+					width="23" height="12">
+				 </a>
+            </li>
+        </ul>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+</header>
+<script src="/css_js/navbar.js"></script>
+<p class=separator>.</p>
+
+    <div class=linksTopics_group>
+        <a class=linksTopics href="/topics/linux/linuxpt.html">..Voltar\ a\ Linux</a>
+        <p class=separator>.</p>
+    </div>
+ 	<p class=text_body_content>
+        <strong>Crontab</strong>
+
+        O crontab é usado para agendar ações no computador de x em x tempo, se quisermos marcar algo para uma data especifica e só para correr uma vez, usamos o AT.
+        Utilizado para agendar certas ações no computador.
+        min (Minute) '0-59'
+        hour (Hour) '0-23'
+        dom (Day of month) '1-31'
+        mon (Month) '1-12'
+        dow (Day of the week) '0-6' Começa no domingo
+        cmd (Command)
+
+        crontab min hour dom mon dow cmd
+
+        Se quisermos todos os dias as 18h usamos a seguinte numenculatura.
+        crontab 0 18 * * * command
+
+        * - é utilizado porque nenhum campo pode ficar por preencher, caso queiramos um campo vazio.
+
+        */x - significa de x em x tempo.
+
+        Nomenclatura
+        Varias tarefas podem ser executadas ao mesmo tempo, se uma tarefa já tiver em execução, começa uma nova igual.
+
+        # m h dom mon dow command
+
+        * 17 12 command
+        Corre em todos os minutos da hora 17 durante o mês de dezembro.
+
+        30 * 12 command
+        Corre todos os dias de dezembro, a meia hora de cada hora, por exemplo 12h30, 13h30 etc
+
+        25 12 1,10 12 * command
+        corre na hora 12h25, dia 1 e dia 10 no mês de dezembro.
+
+        25 12 1-10 12 * command
+        corre na hora 12h25, entre o dia 1 e dia 10 no mês de dezembro.
+
+        20,50 14 1,20-25 5-9 * command
+        As 14h20 e 14h50, nos dias 1 e 20 a 25, nos meses entre abril e setembro executa o comando.
+
+        30 15 15 0 command*
+        O comando irá ser executado as 15h30, no dia 15 do mês e aos domingos.
+
+        */15 20 11,12 command
+        O comando irá ser executado de 15 em 15 minutos as 20h, no mês de novembro e dezembro.
+
+        0 0 15 */3 * command
+        O comando é executado a meia noite , no dia 15 de 3 em 3 meses.
+
+        0 10-18/2 * 1-5 command*
+        o comando é executado de 2 em 2 horas, das 10-18 (10h, 12h, 14h...) de segunda a sexta.
+
+        ! NOTA: no caso de várias variáveis inseridas, como exemplo 1,10 ou 1-10 não pode ter espaço.
+        ! NOTA: Nunca usar o */1 porque é redundante.
+
+        Comandos crontab
+        crontab -l lista as tarefas de crontab.
+        crontab -r remove todas as tarefas de crontab.
+        crontab -e edita o ficheiro de crontab.
+
+        Localização do crontab - /var/spool/cron/crontabs/nome_Utilizador
+
+        touch /etc/cron.allow
+        Criamos um ficheiro chamado cron.allow, para os utilizadores poderem usar o crontab, o nome do utilizador tem que estar dentro do ficheiro. Não é necessário para root. Um utilizador por linha.
+
+        touch /etc/cron.deny
+        Faz o inverso do cron.allow. Se existir tanto o cron.allow e o cron.deny só lê o cron.allow.
+
+        
+    </p>
+</body>
+</html>

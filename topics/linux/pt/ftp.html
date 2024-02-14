@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Página Principal</title>
+	<link rel="stylesheet" href="/css_js/style.css"
+</head>
+<body>
+<header class="header">
+    <nav class="navbar">
+        <a class=Title>FTP</a>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="https://github.com/Iamsacra" class="nav-link">Github</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://www.linkedin.com/in/saulbraga/" class="nav-link">Linkedin</a>
+            </li>
+            <li class="nav-item">
+                <a href="/main/pagina_principal.html" class="nav-link">Main</a>
+            </li>
+            <li class="nav-item">
+                <a href="/topics/linux/linux.html">
+					<img alt="Inglês" src="/imgs/1920px-Flag_of_the_United_Kingdom.svg.png"
+					width="23" height="12">
+				 </a>
+            </li>
+        </ul>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+</header>
+<script src="/css_js/navbar.js"></script>
+<p class=separator>.</p>
+
+    <div class=linksTopics_group>
+        <a class=linksTopics href="/topics/linux/linuxpt.html">..Voltar\ a\ Linux</a>
+        <p class=separator>.</p>
+    </div>
+ 	<p class=text_body_content>
+        <strong>FTP</strong>
+
+        Para utilizar o serviço FTP, é necessário na nossa máquina cliente utilizar um serviço de FTP cliente, enquanto no nosso servidor utilizamos um serviço de servidor FTP. Para a nossa máquina cliente podemos usar o filezilla, enquanto no nosso servidor um dos mais utilizados é o vsftpd. Para instalar este serviço utilizamos o seguinte comando.
+
+        apt install vsftpd
+        
+        Tal como no serviço de SSH, uma das primeiras coisas que devemos de fazer por razões de segurança é mudar a porta por defeito.
+        
+        Então vamos as configurações do vsftpd que se encontra em:
+        /etc/vsftpd.conf
+        
+        Adicionamos o seguinte ao ficheiro:
+        listen_port=933
+        
+        Também por defeito o serviço não permite upload para o servidor, só download, para isso temos que descomentar a seguinte opção:
+        write_enable=YES (linha )
+        
+        também através do cliente FTP é possível andar pelo sistema todo usando qualquer utilizador, para mudar isso e prendermos cada determinado utilizador a sua homefolder, temos que descomentar e adicionar as seguintes linhas:
+        chroot_local_user=YES (linha )
+        
+        allow_writeable_chroot=YES (adicionar esta linha)
+        
+        Também podemos permitir que certos utilizadores especificos possam utilizador todo o sistema de ficheiros, para isso temos que descomentar as seguintes linhas:
+        
+        chroot_list_enable=YES (linha )
+        
+        chroot_list_file=/etc/vsftpd.chroot_list (linha – podemos substituir o ficheiro vsftpd.chroot_list, por qualquer um que queiramos criar, se quisermos manter este também é necessário o criar nesta mesma localização.)
+        
+        A syntax a utilizar no ficheiro anterior é apenas o nome do utilizador e apenas um utilizador por linha.
+        
+        vsftpd com ssl/tls
+        Para tornar FTP um protocolo seguro é necessário gerar chaves encriptadas. Para isso temos que ir a seguinte localização:
+        cd /etc/ssl/private
+        
+        E utilizamos o seguinte comando para gerar as chaves nesta localização
+        openssl req -x509 -nodes -newkey rsa:2048 -keyout vsftpd.pem -out vsftpd.pem -days 365
+        
+        Aqui vai nos dar um questionário para responder, o código de país podemos usar PT, cidade e estado Porto, nome da organização Linux e o resto deixamos por responder.
+        
+        E aí, se bem sucedido, será gerado dois ficheiros, um chamado vsftpd.pem e outro ????, sendo o mais importante o primeiro.
+        
+        Alteramos as permissões para apenas o root poder escrever e ler, ou seja:
+        chmod 600 vsftpd.pem
+        
+        Depois disso, basta apenas associar esses ficheiros ao ficheiro de configuração do vsftpd e a ligação será mais segura.
+        
+        Na linha +-150 do ficheiro de configuração encontramos os certificados rsa para usar encriptação ssl. Alteramos estes para os seguintes:
+        rsa_cert_file=/etc/ssl/private/vsftpd.pem
+        rsa_private_key_file=/etc/ssl/private/vsftpd.pem
+        ssl_enable=YES
+        ssl_ciphers=HIGH
+        ssl_tlsv1_YES
+        ssl_sslv2=NO
+        ssl_sslv3=NO
+        force_local_data_ssl=YES
+        force_local_logins_ssl=YES
+
+
+    </p>
+</body>
+</html>
